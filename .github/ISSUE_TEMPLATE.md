@@ -1,25 +1,43 @@
+# Issue Report
 
-name: Bug report or Feature request
-about: Create a report to help us improve the BOSC Community Library.
-title: ''
-labels: ''
-assignees: ''
+Thank you for helping improve BOSC Community Library. Please complete the sections below so maintainers can triage the issue clearly.
 
+## Summary
 
-Issue Description
-Type of Issue: [Bug Report / Feature Request / Maintenance]
+Describe the issue or proposal in one or two sentences.
 
-Description:
-Please provide a clear and concise description of the issue or enhancement.
+## Type
 
-Steps to Reproduce (for bugs):
-1. Navigate to the specific file or folder.
-2. Identify the broken logic or missing link.
-3. Describe the current outcome.
+- [ ] Bug
+- [ ] Documentation
+- [ ] Feature request
+- [ ] Security or safety concern
+- [ ] Community process
 
-Expected Behavior:
-A clear description of what should happen according to project standards.
+## Context
 
-Environment Details:
-- Browser/OS:
-- Section of the library:
+Explain where the issue appears and who it affects. Include links, logs, diagrams, or screenshots when useful.
+
+## Expected Behavior
+
+Describe what should happen.
+
+## Actual Behavior
+
+Describe what happens now.
+
+## Reproduction Steps
+
+1. 
+2. 
+3. 
+
+## Environment
+
+- Operating system:
+- Tool or language version:
+- Relevant hardware or network context:
+
+## Additional Notes
+
+Add implementation ideas, risks, related work, or review constraints.

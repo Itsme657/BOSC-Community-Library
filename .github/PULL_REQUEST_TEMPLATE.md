@@ -1,14 +1,34 @@
-Description of Changes
-Identify the specific issue being resolved. For the exam, ensure this addresses one of the five required functional, feature, or maintenance challenges.
+# Pull Request
 
-Fixes # (Link the issue number here)
+## Summary
 
-Proposed Changes
-- [ ] Detail of change 1
-- [ ] Detail of change 2
+Describe the change and why it is needed.
 
-Quality Checklist for Lead Maintainer
-- [ ] The code/documentation follows professional OSS standards.
-- [ ] A dedicated feature branch was used for this work.
-- [ ] No merge conflicts are present.
-- [ ] Peer review comments have been added to the discussion thread.
+## Change Type
+
+- [ ] Documentation
+- [ ] Source code
+- [ ] Tests
+- [ ] Examples
+- [ ] Governance or community process
+
+## Technical Checklist
+
+- [ ] I read `CONTRIBUTING.md`.
+- [ ] I kept this pull request focused on one concern.
+- [ ] I added or updated tests where behavior changed.
+- [ ] I updated documentation where contributor-facing behavior changed.
+- [ ] I considered security, privacy, and reliability implications.
+- [ ] I confirmed the change is compatible with the Apache License 2.0.
+
+## Testing
+
+List commands run and summarize results.
+
+```text
+
+```
+
+## Review Notes
+
+Call out areas where reviewer attention is especially helpful.
