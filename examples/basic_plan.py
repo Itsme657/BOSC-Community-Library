@@ -8,4 +8,9 @@ plan = NetworkPlan(
     has_privacy_review=True,
 )
 
-print(plan.is_ready_for_review())
+if plan.is_ready_for_review():
+    print("Plan is ready for maintainer review.")
+else:
+    print("Plan needs updates:")
+    for error in plan.validation_errors():
+        print(f"- {error}")

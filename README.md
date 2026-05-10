@@ -23,6 +23,26 @@ tests/         Automated checks and test fixtures
 
 This repository is curated as a professional open source environment. Changes should be small, traceable, reviewed, and aligned with `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `SECURITY.md`, and `GOVERNANCE.md`.
 
+## Basic Usage
+
+Use `NetworkPlan` to capture early deployment metadata and surface review blockers before a proposal is ready for maintainers.
+
+```python
+from src import NetworkPlan
+
+plan = NetworkPlan(
+    name="Community library wireless access",
+    region="Central",
+    estimated_users=75,
+    has_privacy_review=True,
+)
+
+if plan.is_ready_for_review():
+    print("Plan is ready for maintainer review.")
+else:
+    print(plan.validation_errors())
+```
+
 ## License
 
 This project is licensed under the Apache License 2.0. See `LICENSE` for details.
