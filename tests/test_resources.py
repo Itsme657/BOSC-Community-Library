@@ -112,3 +112,22 @@ def test_resource_index_search_filters_category_and_tags_case_insensitive():
 
     assert len(results) == 1
     assert results[0].resource_id == "r5"
+
+
+def test_resource_index_search_by_resource_id():
+    index = ResourceIndex()
+    index.add_resource(
+        Resource(
+            resource_id="find-me",
+            title="Resource ID Search",
+            url="https://example.com/id-search",
+            category="Tools",
+            tags=("search",),
+            description="Resource with searchable id.",
+        )
+    )
+
+    results = index.search(query="find-me")
+
+    assert len(results) == 1
+    assert results[0].resource_id == "find-me"
