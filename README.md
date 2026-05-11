@@ -73,6 +73,10 @@ results = index.search(query="seguridad", locale="es")
 print([resource.resource_id for resource in results])
 ```
 
+## Performance Improvements
+
+The `ResourceIndex` now prefilters by category and tag indexes to reduce search cost for larger collections.
+
 ## License
 
 This project is licensed under the Apache License 2.0. See `LICENSE` for details.
