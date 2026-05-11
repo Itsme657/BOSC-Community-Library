@@ -43,6 +43,36 @@ else:
     print(plan.validation_errors())
 ```
 
+## Localized Resource Support
+
+This library now includes `Resource` and `ResourceIndex` to store searchable community resources in multiple locales.
+
+```python
+from src import Resource, ResourceIndex
+
+index = ResourceIndex()
+index.add_resource(
+    Resource(
+        resource_id="sec-check",
+        title="Security Checklist",
+        url="https://example.com/security",
+        category="Tools",
+        tags=("security", "checklist"),
+        locale="en",
+        description="Guide for reviewing security controls.",
+        translations={
+            "es": {
+                "title": "Lista de verificación de seguridad",
+                "description": "Guía para revisar los controles de seguridad.",
+            }
+        },
+    )
+)
+
+results = index.search(query="seguridad", locale="es")
+print([resource.resource_id for resource in results])
+```
+
 ## License
 
 This project is licensed under the Apache License 2.0. See `LICENSE` for details.

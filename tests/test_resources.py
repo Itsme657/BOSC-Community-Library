@@ -67,3 +67,29 @@ def test_resource_index_localized_search_uses_translations():
 
     assert len(results) == 1
     assert results[0].resource_id == "r3"
+
+
+def test_resource_index_locale_falls_back_to_translated_text():
+    index = ResourceIndex()
+    index.add_resource(
+        Resource(
+            resource_id="r4",
+            title="Lista de verificación de seguridad",
+            url="https://example.com/seguridad",
+            category="Tools",
+            tags=("security",),
+            locale="es",
+            description="Guía para revisar los controles de seguridad.",
+            translations={
+                "en": {
+                    "title": "Security Checklist",
+                    "description": "Guide for reviewing security controls.",
+                }
+            },
+        )
+    )
+
+    results = index.search(query="security", locale="en")
+
+    assert len(results) == 1
+    assert results[0].resource_id == "r4"
