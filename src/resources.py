@@ -81,7 +81,9 @@ class ResourceIndex:
             title_text = resource.localized_title(locale) if locale else resource.title
             description_text = resource.localized_description(locale) if locale else resource.description
             searchable_text = (
-                title_text
+                resource.resource_id
+                + " "
+                + title_text
                 + " "
                 + description_text
                 + " "
