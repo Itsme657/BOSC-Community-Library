@@ -43,6 +43,8 @@ class ResourceIndex:
 
     def __init__(self) -> None:
         self._resources: dict[str, Resource] = {}
+        self._resources_by_category: dict[str, set[str]] = {}
+        self._resources_by_tag: dict[str, set[str]] = {}
 
     def add_resource(self, resource: Resource) -> None:
         resource.validate()
@@ -51,6 +53,14 @@ class ResourceIndex:
             raise ValueError(f"resource with id '{resource.resource_id}' already exists")
 
         self._resources[resource.resource_id] = resource
+        category_key = resource.category.strip().lower()
+        if category_key:
+            self._resources_by_category.setdefault(category_key, set()).add(resource.resource_id)
+
+        for tag in resource.tags:
+            tag_key = tag.strip().lower()
+            if tag_key:
+                self._resources_by_tag.setdefault(tag_key, set()).add(resource.resource_id)
 
     def get_resource_by_id(self, resource_id: str) -> Optional[Resource]:
         return self._resources.get(resource_id)
@@ -69,14 +79,34 @@ class ResourceIndex:
         normalized_tags = {tag.strip().lower() for tag in tags if tag.strip()}
         category_text = category.strip().lower()
 
+        category_candidates: set[str] | None = None
+        if category_text:
+            category_candidates = self._resources_by_category.get(category_text, set())
+
+        tag_candidates: set[str] | None = None
+        if normalized_tags:
+            for tag in normalized_tags:
+                ids = self._resources_by_tag.get(tag, set())
+                if not ids:
+                    return []
+                tag_candidates = ids if tag_candidates is None else tag_candidates & ids
+
+        if category_candidates is None and tag_candidates is None:
+            candidate_ids = set(self._resources)
+        elif category_candidates is None:
+            candidate_ids = tag_candidates
+        elif tag_candidates is None:
+            candidate_ids = category_candidates
+        else:
+            candidate_ids = category_candidates & tag_candidates
+
+        if not candidate_ids:
+            return []
+
         results: list[Resource] = []
 
-        for resource in self._resources.values():
-            if category_text and category_text != resource.category.lower():
-                continue
-
-            if normalized_tags and not normalized_tags.issubset({t.lower() for t in resource.tags}):
-                continue
+        for resource_id in candidate_ids:
+            resource = self._resources[resource_id]
 
             title_text = resource.localized_title(locale) if locale else resource.title
             description_text = resource.localized_description(locale) if locale else resource.description

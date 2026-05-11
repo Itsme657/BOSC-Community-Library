@@ -131,3 +131,32 @@ def test_resource_index_search_by_resource_id():
 
     assert len(results) == 1
     assert results[0].resource_id == "find-me"
+
+
+def test_resource_index_search_with_category_and_tag_indexes():
+    index = ResourceIndex()
+    index.add_resource(
+        Resource(
+            resource_id="r6",
+            title="Security Guide",
+            url="https://example.com/security-guide",
+            category="Guides",
+            tags=("security", "checklist"),
+            description="A searchable security guide.",
+        )
+    )
+    index.add_resource(
+        Resource(
+            resource_id="r7",
+            title="Network Tips",
+            url="https://example.com/network-tips",
+            category="Guides",
+            tags=("network",),
+            description="A guide to wireless network planning.",
+        )
+    )
+
+    results = index.search(query="security", category="guides", tags=("checklist",))
+
+    assert len(results) == 1
+    assert results[0].resource_id == "r6"
