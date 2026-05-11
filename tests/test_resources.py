@@ -93,3 +93,22 @@ def test_resource_index_locale_falls_back_to_translated_text():
 
     assert len(results) == 1
     assert results[0].resource_id == "r4"
+
+
+def test_resource_index_search_filters_category_and_tags_case_insensitive():
+    index = ResourceIndex()
+    index.add_resource(
+        Resource(
+            resource_id="r5",
+            title="Local Network Planning",
+            url="https://example.com/local-planning",
+            category="Documentation",
+            tags=("planning", "mesh"),
+            description="A guide for community planning and deployments.",
+        )
+    )
+
+    results = index.search(query="planning", category="documentation", tags=("MESH",))
+
+    assert len(results) == 1
+    assert results[0].resource_id == "r5"
