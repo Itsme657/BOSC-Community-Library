@@ -1,4 +1,5 @@
 from src import Resource, ResourceIndex
+import json
 
 
 def test_resource_index_search_by_keyword_and_tags():
@@ -253,3 +254,32 @@ def test_resource_index_search_with_limit_and_sort():
 
     assert len(results) == 1
     assert results[0].resource_id == "a-resource"
+
+
+def test_resource_index_export_to_json():
+    index = ResourceIndex()
+    index.add_resource(
+        Resource(
+            resource_id="export-test",
+            title="Export Test",
+            url="https://example.com/export",
+            category="Test",
+            tags=("export",),
+            description="Test resource for export.",
+            locale="en",
+            translations={
+                "es": {
+                    "title": "Prueba de Exportación",
+                    "description": "Recurso de prueba para exportación.",
+                }
+            },
+        )
+    )
+
+    json_str = index.to_json()
+    data = json.loads(json_str)
+
+    assert len(data) == 1
+    assert data[0]["resource_id"] == "export-test"
+    assert data[0]["title"] == "Export Test"
+    assert data[0]["translations"]["es"]["title"] == "Prueba de Exportación"

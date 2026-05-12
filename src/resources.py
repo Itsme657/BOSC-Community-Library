@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Final, Iterable, Optional
+import json
 
 SUPPORTED_LOCALES: Final = ["en", "es", "fr", "pt"]
 
@@ -149,3 +150,20 @@ class ResourceIndex:
             results = results[:limit]
 
         return results
+
+    def to_json(self) -> str:
+        """Export all resources to JSON format."""
+        resources_data = []
+        for resource in self.all_resources():
+            resource_dict = {
+                "resource_id": resource.resource_id,
+                "title": resource.title,
+                "url": resource.url,
+                "category": resource.category,
+                "tags": list(resource.tags),
+                "locale": resource.locale,
+                "description": resource.description,
+                "translations": resource.translations,
+            }
+            resources_data.append(resource_dict)
+        return json.dumps(resources_data, indent=2, ensure_ascii=False)
