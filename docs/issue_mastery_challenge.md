@@ -36,4 +36,6 @@ This document records the five issue streams completed for the Phase 3 challenge
 
 ### Notes
 - All issues are documented in code, tests, and repository docs.
+- GitHub issues created: #1, #2, #3, #4, #5
+- Issue branches were already merged into `main`; the work is integrated and available in the repository history.
 - This summary is intended to reflect the open-source contribution process and provide a clear record of the simulated issue/PR workflow.
