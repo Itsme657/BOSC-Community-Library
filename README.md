@@ -77,6 +77,17 @@ print([resource.resource_id for resource in results])
 
 The `ResourceIndex` now prefilters by category and tag indexes to reduce search cost for larger collections.
 
+## Search Enhancements
+
+The search engine now supports multi-word AND search, result sorting, and optional result limits. It also allows exporting the resource catalogue to JSON for sharing or offline review.
+
+```python
+results = index.search(query="community security", sort_by="resource_id", limit=5)
+print([resource.resource_id for resource in results])
+
+print(index.to_json())
+```
+
 ## License
 
 This project is licensed under the Apache License 2.0. See `LICENSE` for details.
