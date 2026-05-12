@@ -126,8 +126,10 @@ class ResourceIndex:
                 + " ".join(resource.tags)
             ).lower()
 
-            if query_text and query_text not in searchable_text:
-                continue
+            if query_text:
+                query_words = query_text.split()
+                if not all(word in searchable_text for word in query_words):
+                    continue
 
             if locale and locale != resource.locale and locale not in resource.translations:
                 continue

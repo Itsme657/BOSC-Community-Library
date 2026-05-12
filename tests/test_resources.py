@@ -183,3 +183,38 @@ def test_resource_index_validates_bad_translation_locale():
         assert False, "Expected ValueError for invalid translation locale"
     except ValueError as exc:
         assert "unsupported translation locale: invalid" in str(exc)
+
+
+def test_resource_index_search_multi_word_and_logic():
+    index = ResourceIndex()
+    index.add_resource(
+        Resource(
+            resource_id="r9",
+            title="Security Checklist Guide",
+            url="https://example.com/security-checklist",
+            category="Tools",
+            tags=("security", "checklist"),
+            description="A comprehensive guide for security reviews.",
+        )
+    )
+    index.add_resource(
+        Resource(
+            resource_id="r10",
+            title="Network Security",
+            url="https://example.com/network-security",
+            category="Tools",
+            tags=("network", "security"),
+            description="Guide for network security.",
+        )
+    )
+
+    # Should find r9 because it has both "security" and "checklist"
+    results = index.search(query="security checklist")
+
+    assert len(results) == 1
+    assert results[0].resource_id == "r9"
+
+    # Should find both because both have "security"
+    results = index.search(query="security")
+
+    assert len(results) == 2
