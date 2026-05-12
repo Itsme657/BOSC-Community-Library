@@ -129,6 +129,7 @@ Enable contributors to manage resources in multiple languages and search across 
   - `localized_title(locale)` — return title in requested locale or fall back to default
   - `localized_description(locale)` — return description in requested locale or fall back to default
 - Update `ResourceIndex.search()` to use localized text when searching in a specific locale
+- Fall back to the default text when the requested locale translation is unavailable
 - Support a fixed set of locales: `en`, `es`, `fr`, `pt`
 - Validate that resources use only supported locales
 
