@@ -134,9 +134,8 @@ class ResourceIndex:
                 if not all(word in searchable_text for word in query_words):
                     continue
 
-            if locale and locale != resource.locale and locale not in resource.translations:
-                continue
-
+            # If a requested locale is not available for this resource,
+            # fall back to the default title and description text.
             results.append(resource)
 
         # Sort results

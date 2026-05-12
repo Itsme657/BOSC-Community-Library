@@ -96,6 +96,26 @@ def test_resource_index_locale_falls_back_to_translated_text():
     assert results[0].resource_id == "r4"
 
 
+def test_resource_index_locale_search_falls_back_to_default_text():
+    index = ResourceIndex()
+    index.add_resource(
+        Resource(
+            resource_id="r11",
+            title="Safety Guide",
+            url="https://example.com/safety-guide",
+            category="Tools",
+            tags=("safety",),
+            locale="en",
+            description="A guide to safety checks.",
+        )
+    )
+
+    results = index.search(query="safety", locale="es")
+
+    assert len(results) == 1
+    assert results[0].resource_id == "r11"
+
+
 def test_resource_index_search_filters_category_and_tags_case_insensitive():
     index = ResourceIndex()
     index.add_resource(
