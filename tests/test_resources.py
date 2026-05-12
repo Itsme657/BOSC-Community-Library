@@ -218,3 +218,38 @@ def test_resource_index_search_multi_word_and_logic():
     results = index.search(query="security")
 
     assert len(results) == 2
+
+
+def test_resource_index_search_with_limit_and_sort():
+    index = ResourceIndex()
+    index.add_resource(
+        Resource(
+            resource_id="z-resource",
+            title="Zebra Guide",
+            url="https://example.com/zebra",
+            category="Tools",
+            description="Guide starting with Z.",
+        )
+    )
+    index.add_resource(
+        Resource(
+            resource_id="a-resource",
+            title="Apple Guide",
+            url="https://example.com/apple",
+            category="Tools",
+            description="Guide starting with A.",
+        )
+    )
+
+    # Sort by title ascending
+    results = index.search(sort_by="title")
+
+    assert len(results) == 2
+    assert results[0].resource_id == "a-resource"
+    assert results[1].resource_id == "z-resource"
+
+    # Limit to 1
+    results = index.search(limit=1, sort_by="title")
+
+    assert len(results) == 1
+    assert results[0].resource_id == "a-resource"

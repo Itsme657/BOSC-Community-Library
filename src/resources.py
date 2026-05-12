@@ -78,6 +78,8 @@ class ResourceIndex:
         category: str = "",
         tags: Iterable[str] = (),
         locale: str = "en",
+        limit: int = 0,
+        sort_by: str = "title",
     ) -> list[Resource]:
         query_text = query.strip().lower()
         normalized_tags = {tag.strip().lower() for tag in tags if tag.strip()}
@@ -135,5 +137,15 @@ class ResourceIndex:
                 continue
 
             results.append(resource)
+
+        # Sort results
+        if sort_by == "title":
+            results.sort(key=lambda r: r.localized_title(locale) if locale else r.title)
+        elif sort_by == "resource_id":
+            results.sort(key=lambda r: r.resource_id)
+
+        # Apply limit
+        if limit > 0:
+            results = results[:limit]
 
         return results
