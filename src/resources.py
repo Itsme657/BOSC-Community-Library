@@ -37,6 +37,10 @@ class Resource:
         if self.locale not in SUPPORTED_LOCALES:
             raise ValueError(f"unsupported locale: {self.locale}")
 
+        for locale in self.translations:
+            if locale not in SUPPORTED_LOCALES:
+                raise ValueError(f"unsupported translation locale: {locale}")
+
 
 class ResourceIndex:
     """A lightweight searchable collection of community resources."""

@@ -160,3 +160,26 @@ def test_resource_index_search_with_category_and_tag_indexes():
 
     assert len(results) == 1
     assert results[0].resource_id == "r6"
+
+
+def test_resource_index_validates_bad_translation_locale():
+    index = ResourceIndex()
+
+    try:
+        index.add_resource(
+            Resource(
+                resource_id="r8",
+                title="Invalid Translation",
+                url="https://example.com/invalid",
+                category="Tools",
+                locale="en",
+                translations={
+                    "invalid": {
+                        "title": "Invalid Locale",
+                    }
+                },
+            )
+        )
+        assert False, "Expected ValueError for invalid translation locale"
+    except ValueError as exc:
+        assert "unsupported translation locale: invalid" in str(exc)
